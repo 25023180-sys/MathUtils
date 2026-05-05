@@ -1,0 +1,35 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Run Explanations
+        # Lệnh này vừa build, vừa chạy hàm main để in giải thích ra màn hình
+        run: |
+          mvn package
+          java -cp target/Week8-1.0-SNAPSHOT.jar org.example.Main
+
+      - name: Upload Build Report
+        # Bước này giúp GitHub lưu lại file JAR sau khi build xong
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-Artifacts
+          path: target/*.jar
