@@ -22,13 +22,11 @@ jobs:
           cache: maven
 
       - name: Build and Run Explanations
-
         run: |
-          mvn package
-          java -cp target/MathUtils-1.0-SNAPSHOT.jar com.auction.Main
+          mvn package exec:java -Dexec.mainClass="com.auction.Main"
 
       - name: Upload Build Report
         uses: actions/upload-artifact@v4
         with:
           name: Build-Artifacts
-          path: Bai1/target/*.jar
+          path: target/*.jar
