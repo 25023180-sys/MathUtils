@@ -22,7 +22,7 @@ jobs:
           cache: maven
 
       - name: Build and Run Explanations
-        working-directory: ./Bai1          # ← THÊM DÒNG NÀY
+
         run: |
           mvn package
           java -cp target/MathUtils-1.0-SNAPSHOT.jar com.auction.Main
