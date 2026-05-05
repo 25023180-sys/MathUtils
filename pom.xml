@@ -1,20 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.auction</groupId>
-        <artifactId>VuBaoChau_25023180_Week9</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/> </parent>
 
-    <artifactId>Bai1</artifactId>
+    <groupId>com.auction</groupId>
+    <artifactId>MathUtils</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+
+        <!-- ✅ 1. Logback Classic 1.4.11 (thay thế System.out.println) -->
+        <!-- Logback 1.4.x yêu cầu SLF4J 2.0.x — đã được kéo vào tự động -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.11</version>
+        </dependency>
+
+        <!-- ✅ 2. Hibernate Core 6.2.0.Final (hỗ trợ lưu trữ dữ liệu) -->
+        <!-- Hibernate 6.x dùng jakarta.persistence (không phải javax.persistence) -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.0.Final</version>
+            <!-- Loại bỏ jboss-logging để tránh xung đột với SLF4J/Logback -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- ✅ 3. JUnit Jupiter 5.9.2 (công cụ kiểm thử duy nhất) -->
+        <!-- scope=test: chỉ dùng khi test, không đóng gói vào jar -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- ✅ Bắt buộc: Surefire >= 2.22.0 mới chạy được JUnit 5 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
